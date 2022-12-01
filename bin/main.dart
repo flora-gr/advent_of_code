@@ -1,5 +1,5 @@
-import 'package:advent_of_code/test.dart' as test;
+import 'package:advent_of_code/day1.dart' as day1;
 
 void main(List<String> arguments) {
-  print('Hello world: ${test.calculate()}!');
+  day1.calculate();
 }
