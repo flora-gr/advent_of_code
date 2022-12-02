@@ -1,18 +1,13 @@
-import 'dart:io';
 import 'dart:core';
+import 'base/base.dart' as base;
 
 Future<void> calculate() async {
-  final List<String> example = await File('./input/day2/example').readAsLines();
-  final List<String> input = await File('./input/day2/input').readAsLines();
+  base.calculateFirst = _getTotalScore1;
+  base.calculateSecond = _getTotalScore2;
+  base.exampleAnswerFirst = 15;
+  base.exampleAnswerSecond = 12;
 
-  print('\nSolutions day 2:');
-  _calculateFirst(example, input);
-  _calculateSecond(example, input);
-}
-
-void _calculateFirst(List<String> example, List<String> input) {
-  print('Example score from play: ${_getTotalScore1(example)} - should be 15');
-  print('Input score from play: ${_getTotalScore1(input)}');
+  await base.calculate(2);
 }
 
 int _getTotalScore1(List<String> dataLines) {
@@ -23,12 +18,6 @@ int _getTotalScore1(List<String> dataLines) {
   }
 
   return _getTotalScore(dataLines, lineScoreCalculation);
-}
-
-void _calculateSecond(List<String> example, List<String> input) {
-  print(
-      'Example score from strategy: ${_getTotalScore2(example)} - should be 12');
-  print('Input score from strategy: ${_getTotalScore2(input)}');
 }
 
 int _getTotalScore2(List<String> dataLines) {

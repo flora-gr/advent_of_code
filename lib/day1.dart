@@ -1,30 +1,17 @@
-import 'dart:io';
 import 'dart:core';
+import 'base/base.dart' as base;
 
 Future<void> calculate() async {
-  final List<String> example = await File('./input/day1/example').readAsLines();
-  final List<String> input = await File('./input/day1/input').readAsLines();
+  base.calculateFirst = _getMaxCalories;
+  base.calculateSecond = _getTotalOfHighestThree;
+  base.exampleAnswerFirst = 24000;
+  base.exampleAnswerSecond = 45000;
 
-  print('Solutions day 1:');
-  _calculateFirst(example, input);
-  _calculateSecond(example, input);
-}
-
-void _calculateFirst(List<String> example, List<String> input) {
-  print(
-      'Example highest calories: ${_getMaxCalories(example)} - should be 24000');
-  print('Input highest calories: ${_getMaxCalories(input)}');
+  await base.calculate(1);
 }
 
 int _getMaxCalories(List<String> dataLines) {
   return _getListOfAddedCaloriesSorted(dataLines).first;
-}
-
-void _calculateSecond(List<String> example, List<String> input) {
-  print(
-      'Example highest three calories total: ${_getTotalOfHighestThree(example)} - should be 45000');
-  print(
-      'Input highest three calories total: ${_getTotalOfHighestThree(input)}');
 }
 
 int _getTotalOfHighestThree(List<String> dataLines) {
