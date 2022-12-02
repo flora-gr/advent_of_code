@@ -11,9 +11,9 @@ Future<void> calculate() async {
 }
 
 int _getTotalScore1(List<String> dataLines) {
-  lineScoreCalculation(List<String> elements) {
+  int lineScoreCalculation(List<String> elements) {
     final Play myPlay = elements.last.toPlay();
-    return myPlay.toOutcome(elements.first.toPlay()).toScore() +
+    return myPlay.getOutcomeAgainst(elements.first.toPlay()).toScore() +
         myPlay.toScore();
   }
 
@@ -21,7 +21,7 @@ int _getTotalScore1(List<String> dataLines) {
 }
 
 int _getTotalScore2(List<String> dataLines) {
-  lineScoreCalculation(List<String> elements) {
+  int lineScoreCalculation(List<String> elements) {
     final Outcome requiredOutcome = elements.last.toOutcome();
     final Play requiredPlay =
         _getRequiredPlay(elements.first.toPlay(), requiredOutcome);
@@ -64,7 +64,7 @@ enum Outcome {
   draw,
 }
 
-extension Stringxtension on String {
+extension StringExtension on String {
   Play toPlay() {
     switch (this) {
       case 'A':
@@ -107,7 +107,7 @@ extension PlayExtension on Play {
     }
   }
 
-  Outcome toOutcome(Play other) {
+  Outcome getOutcomeAgainst(Play other) {
     if (losesFrom(other)) {
       return Outcome.lose;
     } else if (other.losesFrom(this)) {
@@ -124,7 +124,7 @@ extension PlayExtension on Play {
   }
 }
 
-extension OutcomeValueExtension on Outcome {
+extension OutcomeExtension on Outcome {
   int toScore() {
     switch (this) {
       case Outcome.win:

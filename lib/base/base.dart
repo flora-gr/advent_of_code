@@ -5,14 +5,16 @@ Future<void> calculate(int day) async {
       await File('./input/day$day/example').readAsLines();
   final List<String> input = await File('./input/day$day/input').readAsLines();
 
-  final int firstExample = calculateFirst(example);
-  final int secondExample = calculateSecond(example);
+  final int firstExampleSolution = calculateFirst(example);
+  final int secondExampleSolution = calculateSecond(example);
 
-  print('\nSolutions day $day:\n'
-      'First part example: $firstExample, which is ${firstExample == exampleAnswerFirst ? 'correct' : 'incorrect'}\n'
-      'First part input: ${calculateFirst(input)}\n'
-      'Second part example: $secondExample, which is ${secondExample == exampleAnswerSecond ? 'correct' : 'incorrect'}\n'
-      'Second part input: ${calculateSecond(input)}');
+  print('Solutions day $day:\n'
+      'First part example: $firstExampleSolution, '
+      'which is ${firstExampleSolution == exampleAnswerFirst ? 'correct' : 'incorrect'}\n'
+      'First part solution: ${calculateFirst(input)}\n'
+      'Second part example: $secondExampleSolution, '
+      'which is ${secondExampleSolution == exampleAnswerSecond ? 'correct' : 'incorrect'}\n'
+      'Second part solution: ${calculateSecond(input)}\n');
 }
 
 late int Function(List<String> dataLines) calculateFirst;
