@@ -30,18 +30,14 @@ int _getTotalPriority1(List<String> dataLines) {
 }
 
 int _getTotalPriority2(List<String> dataLines) {
-  final List<List<String>> groupsOfThree = <List<String>>[];
+  int total = 0;
   for (int i = 1; i <= dataLines.length; i++) {
     if (i % 3 == 0) {
-      groupsOfThree.add(dataLines.sublist(i - 3, i));
+      final commonChar = dataLines[i - 1].split('').firstWhere((String char) =>
+          dataLines[i - 2].split('').contains(char) &&
+          dataLines[i - 3].split('').contains(char));
+      total += alphabeth.indexOf(commonChar) + 1;
     }
-  }
-
-  int total = 0;
-  for (List<String> group in groupsOfThree) {
-    final commonChar = group[0].split('').firstWhere((String char) =>
-        group[1].split('').contains(char) && group[2].split('').contains(char));
-    total += alphabeth.indexOf(commonChar) + 1;
   }
 
   return total;
