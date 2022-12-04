@@ -21,7 +21,7 @@ int _getTotalPriority1(List<String> dataLines) {
     final int halfCharCount = (line.length / 2).floor();
     final List<String> firstHalf = line.substring(0, halfCharCount).split('');
     final List<String> secondHalf = line.substring(halfCharCount).split('');
-    final commonChar =
+    final String commonChar =
         firstHalf.firstWhere((String char) => secondHalf.contains(char));
     total += alphabeth.indexOf(commonChar) + 1;
   }
@@ -33,9 +33,10 @@ int _getTotalPriority2(List<String> dataLines) {
   int total = 0;
   for (int i = 1; i <= dataLines.length; i++) {
     if (i % 3 == 0) {
-      final commonChar = dataLines[i - 1].split('').firstWhere((String char) =>
-          dataLines[i - 2].split('').contains(char) &&
-          dataLines[i - 3].split('').contains(char));
+      final String commonChar = dataLines[i - 1].split('').firstWhere(
+          (String char) =>
+              dataLines[i - 2].split('').contains(char) &&
+              dataLines[i - 3].split('').contains(char));
       total += alphabeth.indexOf(commonChar) + 1;
     }
   }
