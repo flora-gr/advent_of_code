@@ -5,8 +5,8 @@ Future<void> calculate(int day) async {
       await File('./input/day$day/example').readAsLines();
   final List<String> input = await File('./input/day$day/input').readAsLines();
 
-  final int firstExampleSolution = calculateFirst(example);
-  final int secondExampleSolution = calculateSecond(example);
+  final Object firstExampleSolution = calculateFirst(example);
+  final Object secondExampleSolution = calculateSecond(example);
 
   print('Solutions day $day:\n'
       'First part example: $firstExampleSolution, '
@@ -17,7 +17,7 @@ Future<void> calculate(int day) async {
       'Second part solution: ${calculateSecond(input)}\n');
 }
 
-late int Function(List<String> dataLines) calculateFirst;
-late int Function(List<String> dataLines) calculateSecond;
-late int exampleAnswerFirst;
-late int exampleAnswerSecond;
+late Object Function(List<String> dataLines) calculateFirst;
+late Object Function(List<String> dataLines) calculateSecond;
+late Object exampleAnswerFirst;
+late Object exampleAnswerSecond;
