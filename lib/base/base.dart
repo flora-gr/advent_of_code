@@ -10,10 +10,10 @@ Future<void> calculate(int day) async {
 
   print('Solutions day $day:\n'
       'First part example: $firstExampleSolution, '
-      'which is ${firstExampleSolution == exampleAnswerFirst ? 'correct' : 'incorrect'}\n'
+      'which is ${_isCorrect(firstExampleSolution, exampleAnswerFirst) ? 'correct' : 'incorrect'}\n'
       'First part solution: ${calculateFirst(input)}\n'
       'Second part example: $secondExampleSolution, '
-      'which is ${secondExampleSolution == exampleAnswerSecond ? 'correct' : 'incorrect'}\n'
+      'which is ${_isCorrect(secondExampleSolution, exampleAnswerSecond) ? 'correct' : 'incorrect'}\n'
       'Second part solution: ${calculateSecond(input)}\n');
 }
 
@@ -21,3 +21,13 @@ late Object Function(List<String> dataLines) calculateFirst;
 late Object Function(List<String> dataLines) calculateSecond;
 late Object exampleAnswerFirst;
 late Object exampleAnswerSecond;
+
+bool _isCorrect(Object exampleSolution, Object exampleAnswer) {
+  if (exampleSolution is List && exampleAnswer is List) {
+    return exampleSolution.length == exampleAnswer.length &&
+        exampleAnswer.every((dynamic element) =>
+            exampleSolution[exampleAnswer.indexOf(element)] == element);
+  } else {
+    return exampleSolution == exampleAnswer;
+  }
+}
