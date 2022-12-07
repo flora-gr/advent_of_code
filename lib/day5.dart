@@ -14,8 +14,7 @@ String _getTopCrates1(List<String> dataLines) {
   void executeMove(
       Map<int, List<String>> stacks, int number, int fromIndex, int toIndex) {
     for (int k = 0; k < number; k++) {
-      stacks[toIndex]!.add(stacks[fromIndex]!.last);
-      stacks[fromIndex]!.removeLast();
+      stacks[toIndex]!.add(stacks[fromIndex]!.removeLast());
     }
   }
 

@@ -25,7 +25,6 @@ int _getTotalPriority1(List<String> dataLines) {
         firstHalf.firstWhere((String char) => secondHalf.contains(char));
     total += alphabeth.indexOf(commonChar) + 1;
   }
-
   return total;
 }
 
@@ -40,6 +39,5 @@ int _getTotalPriority2(List<String> dataLines) {
       total += alphabeth.indexOf(commonChar) + 1;
     }
   }
-
   return total;
 }

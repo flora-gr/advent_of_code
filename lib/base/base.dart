@@ -5,22 +5,28 @@ Future<void> calculate(int day) async {
       await File('./input/day$day/example').readAsLines();
   final List<String> input = await File('./input/day$day/input').readAsLines();
 
+  dataCache = null;
   final Object firstExampleSolution = calculateFirst(example);
   final Object secondExampleSolution = calculateSecond(example);
+  dataCache = null;
+  final Object firstSolution = calculateFirst(input);
+  final Object secondSolution = calculateSecond(input);
 
   print('Solutions day $day:\n'
       'First part example: $firstExampleSolution, '
       'which is ${_isCorrect(firstExampleSolution, exampleAnswerFirst) ? 'correct' : 'incorrect'}\n'
-      'First part solution: ${calculateFirst(input)}\n'
+      'First part solution: $firstSolution\n'
       'Second part example: $secondExampleSolution, '
       'which is ${_isCorrect(secondExampleSolution, exampleAnswerSecond) ? 'correct' : 'incorrect'}\n'
-      'Second part solution: ${calculateSecond(input)}\n');
+      'Second part solution: $secondSolution\n');
 }
 
 late Object Function(List<String> dataLines) calculateFirst;
 late Object Function(List<String> dataLines) calculateSecond;
 late Object exampleAnswerFirst;
 late Object exampleAnswerSecond;
+
+Object? dataCache;
 
 bool _isCorrect(Object exampleSolution, Object exampleAnswer) {
   if (exampleSolution is List && exampleAnswer is List) {

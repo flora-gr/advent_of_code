@@ -27,9 +27,13 @@ int _getMinimumDirSizeToDelete(List<String> dataLines) {
 }
 
 List<int> _getDirSizes(List<String> dataLines) {
-  final List<int> dirSizes = <int>[];
-  _addDirSizes(_getFileTree(dataLines), dirSizes);
-  return dirSizes;
+  if (base.dataCache == null) {
+    final Dir fileTree = _getFileTree(dataLines);
+    final List<int> dirSizes = <int>[];
+    _addDirSizes(fileTree, dirSizes);
+    base.dataCache = dirSizes;
+  }
+  return base.dataCache as List<int>;
 }
 
 int _addDirSizes(Dir dir, List<int> allSizes) {
@@ -68,7 +72,6 @@ Dir _getFileTree(List<String> dataLines) {
       }
     }
   }
-
   return mainDir;
 }
 

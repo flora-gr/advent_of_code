@@ -21,22 +21,22 @@ int _getTotalOfHighestThree(List<String> dataLines) {
 }
 
 List<int> _getListOfAddedCaloriesSorted(List<String> dataLines) {
-  final List<int> listOfAddedCalories = <int>[];
-  int addedCalories = 0;
-
-  for (int i = 0; i < dataLines.length; i++) {
-    final calories = int.tryParse(dataLines[i]);
-    if (calories != null) {
-      addedCalories += calories;
-      if (i == dataLines.length - 1) {
+  if (base.dataCache == null) {
+    final List<int> listOfAddedCalories = <int>[];
+    int addedCalories = 0;
+    for (int i = 0; i < dataLines.length; i++) {
+      final calories = int.tryParse(dataLines[i]);
+      if (calories != null) {
+        addedCalories += calories;
+        if (i == dataLines.length - 1) {
+          listOfAddedCalories.add(addedCalories);
+        }
+      } else {
         listOfAddedCalories.add(addedCalories);
+        addedCalories = 0;
       }
-    } else {
-      listOfAddedCalories.add(addedCalories);
-      addedCalories = 0;
     }
+    base.dataCache = listOfAddedCalories..sort((b, a) => a.compareTo(b));
   }
-
-  listOfAddedCalories.sort((b, a) => a.compareTo(b));
-  return listOfAddedCalories;
+  return base.dataCache as List<int>;
 }
