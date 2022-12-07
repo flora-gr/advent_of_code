@@ -21,22 +21,20 @@ int _getTotalOfSmallestDirs(List<String> dataLines) {
 }
 
 int _getMinimumDirSizeToDelete(List<String> dataLines) {
-  final List<int> dirSizes = _getDirSizes(dataLines);
+  final List<int> dirSizes = _getDirSizes(dataLines)..sort();
   final int spaceToFree = requiredFreeSpace - (diskSpace - dirSizes.last);
   return dirSizes.firstWhere((int size) => size >= spaceToFree);
 }
 
 List<int> _getDirSizes(List<String> dataLines) {
-  final Dir fileTree = _getFileTree(dataLines);
   final List<int> dirSizes = <int>[];
-  _addDirSizes(fileTree, dirSizes);
-  dirSizes.sort();
+  _addDirSizes(_getFileTree(dataLines), dirSizes);
   return dirSizes;
 }
 
 int _addDirSizes(Dir dir, List<int> allSizes) {
   int size = 0;
-  for (Object item in dir.content) {
+  for (Object item in dir.contents) {
     if (item is File) {
       size += item.size;
     } else {
@@ -50,35 +48,23 @@ int _addDirSizes(Dir dir, List<int> allSizes) {
 Dir _getFileTree(List<String> dataLines) {
   final Dir mainDir = Dir('/', null);
   Dir currentDir = mainDir;
-  for (int i = 0; i < dataLines.length; i++) {
-    if (dataLines[i].startsWith('\$')) {
-      String command = dataLines[i].substring(2);
-      if (command == 'ls') {
-        i++;
-        while (i < dataLines.length) {
-          String nextLine = dataLines[i];
-          final List<String> contents = nextLine.split(' ');
-          if (nextLine.startsWith('\$')) {
-            command = nextLine.substring(2);
-            break;
-          } else if (nextLine.startsWith('dir')) {
-            currentDir.content.add(Dir(contents.last, currentDir));
-          } else {
-            currentDir.content
-                .add(File(contents.last, int.parse(contents.first)));
-          }
-          i++;
-        }
+  for (String line in dataLines) {
+    if (line.startsWith('\$ cd')) {
+      final String newDir = line.split(' ').last;
+      if (newDir == '/') {
+        currentDir = mainDir;
+      } else if (newDir == '..') {
+        currentDir = currentDir.parent!;
+      } else {
+        currentDir = currentDir.contents.singleWhere(
+            (Object item) => item is Dir && item.name == newDir) as Dir;
       }
-      if (command.startsWith('cd')) {
-        if (command.endsWith('/')) {
-          currentDir = mainDir;
-        } else if (command.endsWith('..')) {
-          currentDir = currentDir.parent!;
-        } else {
-          currentDir = currentDir.content.singleWhere((Object item) =>
-              item is Dir && item.name == command.split(' ').last) as Dir;
-        }
+    } else if (!line.startsWith('\$')) {
+      final List<String> content = line.split(' ');
+      if (content.first == 'dir') {
+        currentDir.contents.add(Dir(content.last, currentDir));
+      } else {
+        currentDir.contents.add(File(content.last, int.parse(content.first)));
       }
     }
   }
@@ -94,7 +80,7 @@ class Dir {
 
   final String name;
   final Dir? parent;
-  final List<Object> content = <Object>[];
+  final List<Object> contents = <Object>[];
 }
 
 class File {
