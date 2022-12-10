@@ -5,7 +5,12 @@ Future<void> calculate() async {
   base.calculateFirst = _getSignalsAtIndices;
   base.calculateSecond = _visualizeCRT;
   base.exampleAnswerFirst = 13140;
-  base.exampleAnswerSecond = 0;
+  base.exampleAnswerSecond = '##..##..##..##..##..##..##..##..##..##..'
+      '###...###...###...###...###...###...###.'
+      '####....####....####....####....####....'
+      '#####.....#####.....#####.....#####.....'
+      '######......######......######......####'
+      '#######.......#######.......#######.....';
 
   await base.calculate(10);
 }
@@ -19,7 +24,7 @@ int _getSignalsAtIndices(List<String> dataLines) {
   return signal;
 }
 
-int _visualizeCRT(List<String> dataLines) {
+String _visualizeCRT(List<String> dataLines) {
   final List<int> registerValues = _getRegisterValues(dataLines);
   String crtLine = '';
   for (int pixel = 0; pixel < registerValues.length; pixel++) {
@@ -36,7 +41,7 @@ int _visualizeCRT(List<String> dataLines) {
   }
   print('\n');
 
-  return 0;
+  return crtLine.substring(0, 240);
 }
 
 List<int> _getRegisterValues(List<String> dataLines) {
