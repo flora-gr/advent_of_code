@@ -8,6 +8,7 @@ import 'package:advent_of_code/day7.dart' as day7;
 import 'package:advent_of_code/day8.dart' as day8;
 import 'package:advent_of_code/day9.dart' as day9;
 import 'package:advent_of_code/day10.dart' as day10;
+import 'package:advent_of_code/day11.dart' as day11;
 
 void main() async {
   await day1.calculate();
@@ -20,4 +21,5 @@ void main() async {
   await day8.calculate();
   await day9.calculate();
   await day10.calculate();
+  await day11.calculate();
 }
