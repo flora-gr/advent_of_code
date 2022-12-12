@@ -64,10 +64,10 @@ int _getMaxScenicScore(List<String> datalines) {
       final int currentTree = treeMatrix[i][j];
 
       final List<int> leftView =
-          List.from(treeMatrix[i].sublist(0, j).reversed);
+          List<int>.from(treeMatrix[i].sublist(0, j).reversed);
       final List<int> rightView = treeMatrix[i].sublist(j + 1);
       final List<int> topView =
-          List.from(treeMatrixTransposed[j].sublist(0, i).reversed);
+          List<int>.from(treeMatrixTransposed[j].sublist(0, i).reversed);
       final List<int> bottomView = treeMatrixTransposed[j].sublist(i + 1);
 
       final int leftNumber = _getNumberInView(currentTree, leftView);

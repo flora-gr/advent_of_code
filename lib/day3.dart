@@ -8,7 +8,7 @@ Future<void> calculate() async {
   base.exampleAnswerFirst = 157;
   base.exampleAnswerSecond = 70;
 
-  alphabeth = await File('./input/day3/alphabet').readAsLines();
+  alphabeth = await File('./lib/base/alphabet').readAsLines();
 
   await base.calculate(3);
 }

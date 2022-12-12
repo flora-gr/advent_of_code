@@ -13,12 +13,12 @@ Future<void> calculate() async {
 }
 
 int _getUniqueTailPositions(List<String> dataLines, int ropeLength) {
-  final List<Knot> rope = List.generate(ropeLength, (_) => Knot());
+  final List<Knot> rope = List<Knot>.generate(ropeLength, (_) => Knot());
   final Set<String> tailPositions = <String>{'0,0'};
 
   for (String line in dataLines) {
     final List<String> move = line.split(' ');
-    final steps = int.parse(move.last);
+    final int steps = int.parse(move.last);
 
     void moveHead(Knot head) {
       switch (move.first) {

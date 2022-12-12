@@ -25,7 +25,7 @@ List<int> _getListOfAddedCaloriesSorted(List<String> dataLines) {
     final List<int> listOfAddedCalories = <int>[];
     int addedCalories = 0;
     for (int i = 0; i < dataLines.length; i++) {
-      final calories = int.tryParse(dataLines[i]);
+      final int? calories = int.tryParse(dataLines[i]);
       if (calories != null) {
         addedCalories += calories;
         if (i == dataLines.length - 1) {
