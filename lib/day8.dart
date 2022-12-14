@@ -10,9 +10,9 @@ Future<void> calculate() async {
   await base.calculate(8);
 }
 
-int _getVisibleTreeCount(List<String> datalines) {
+int _getVisibleTreeCount(List<String> dataLines) {
   final List<List<int>> treeMatrix = <List<int>>[];
-  for (String line in datalines) {
+  for (String line in dataLines) {
     treeMatrix
         .add(line.split('').map((String tree) => int.parse(tree)).toList());
   }
@@ -45,9 +45,9 @@ int _getVisibleTreeCount(List<String> datalines) {
   return visibleTreeCount;
 }
 
-int _getMaxScenicScore(List<String> datalines) {
+int _getMaxScenicScore(List<String> dataLines) {
   final List<List<int>> treeMatrix = <List<int>>[];
-  for (String line in datalines) {
+  for (String line in dataLines) {
     treeMatrix
         .add(line.split('').map((String tree) => int.parse(tree)).toList());
   }
