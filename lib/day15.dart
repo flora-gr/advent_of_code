@@ -2,7 +2,7 @@ import 'dart:core';
 import 'base/base.dart' as base;
 
 Future<void> calculate() async {
-  base.calculateFirst = _getEmptiesOnRow;
+  base.calculateFirst = _getEmptiesOnLevel;
   base.calculateSecond = _getDistressSignal;
   base.exampleAnswerFirst = 26;
   base.exampleAnswerSecond = 56000011;
@@ -10,7 +10,7 @@ Future<void> calculate() async {
   await base.calculate(15);
 }
 
-int _getEmptiesOnRow(List<String> dataLines) {
+int _getEmptiesOnLevel(List<String> dataLines) {
   final int levelToCheck = int.parse(dataLines[0]);
   final List<Position> sensors = _getSensors(dataLines);
 
