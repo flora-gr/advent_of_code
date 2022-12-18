@@ -36,10 +36,12 @@ int _getTowerHeight(List<String> dataLines, int maxRocks) {
     final int highestOccupied = (occupied.keys.toList()..sort()).last;
     Rock rock = _createNewRock(highestOccupied);
     bool settled = false;
+
     while (!settled) {
       _pushRock(jetPattern, rock);
       settled = !rock.moveDown();
     }
+
     for (Position position in rock.positions) {
       if (occupied[position.Y] == null) {
         occupied[position.Y] = <Position>[];
