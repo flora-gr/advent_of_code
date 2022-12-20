@@ -10,9 +10,6 @@ Future<void> calculate() async {
   await base.calculate(18);
 }
 
-late int currentJet;
-late int currentRock;
-
 int _getExternalSurfaces(List<String> dataLines) {
   final int totalSurfaces = dataLines.length * 6;
   final Set<String> uniqueSurfaces = <String>{};
