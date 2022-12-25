@@ -137,7 +137,3 @@ class Position {
 extension PositionExtension on Position {
   int manhattanDistExt(Position ext) => (X - ext.X).abs() + (Y - ext.Y).abs();
 }
-
-extension IntExtension on int {
-  int abs() => this < 0 ? -1 * this : this;
-}
