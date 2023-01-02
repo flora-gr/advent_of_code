@@ -6,7 +6,7 @@ Future<void> calculate() async {
   base.calculateFirst = _getSnafu1;
   base.calculateSecond = _second;
   base.exampleAnswerFirst = '2=-1=0';
-  base.exampleAnswerSecond = '-';
+  base.exampleAnswerSecond = '*';
 
   await base.calculate(25);
 }
@@ -16,15 +16,14 @@ String _getSnafu1(List<String> dataLines) {
   for (String line in dataLines) {
     final List<String> signs = line.split('');
     for (int i = 0; i < signs.length; i++) {
-      num add = _getNumberToAdd(signs[signs.length - 1 - i], i);
-      number += add;
+      number += _getNumberToAdd(signs[signs.length - 1 - i], i);
     }
   }
   return _getSnafu(number);
 }
 
 String _second(List<String> dataLines) {
-  return '-';
+  return '*';
 }
 
 num _getNumberToAdd(String sign, int indexFromEnd) {
