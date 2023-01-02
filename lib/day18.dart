@@ -37,19 +37,22 @@ int _getWaterAccessibleSurfaces(List<String> dataLines) {
     cubes.add(Cube(X: split[0], Y: split[1], Z: split[2]));
   }
 
-  List<int> xValues = cubes.map((Cube cube) => cube.X).toList()..sort();
+  List<int> xValues = cubes.map((Cube cube) => cube.X).toList(growable: false)
+    ..sort();
   final int minX = xValues.first - 1;
   final int maxX = xValues.last + 1;
-  List<int> yValues = cubes.map((Cube cube) => cube.Y).toList()..sort();
+  List<int> yValues = cubes.map((Cube cube) => cube.Y).toList(growable: false)
+    ..sort();
   final int minY = yValues.first - 1;
   final int maxY = yValues.last + 1;
-  List<int> zValues = cubes.map((Cube cube) => cube.Z).toList()..sort();
+  List<int> zValues = cubes.map((Cube cube) => cube.Z).toList(growable: false)
+    ..sort();
   final int minZ = zValues.first - 1;
   final int maxZ = zValues.last + 1;
 
   final Set<Cube> water = <Cube>{};
   Set<Cube> currentQueue = <Cube>{Cube(X: minX, Y: minY, Z: minZ)};
-  Set<Cube> nextQueue = <Cube>{};
+  final Set<Cube> nextQueue = <Cube>{};
   while (currentQueue.isNotEmpty) {
     for (Cube drop in currentQueue) {
       Iterable<Cube> touchingWater = drop.getTouchingCubes().where(
@@ -65,20 +68,20 @@ int _getWaterAccessibleSurfaces(List<String> dataLines) {
       nextQueue.addAll(touchingWater);
     }
     water.addAll(currentQueue);
-    currentQueue = Set.of(nextQueue);
+    currentQueue = Set<Cube>.of(nextQueue);
     nextQueue.clear();
   }
 
-  int touchingSurfaces = 0;
+  int accessibleSurfaces = 0;
   for (Cube cube in cubes) {
     for (Cube water in water) {
       if (cube.touches(water)) {
-        touchingSurfaces++;
+        accessibleSurfaces++;
       }
     }
   }
 
-  return touchingSurfaces;
+  return accessibleSurfaces;
 }
 
 class Cube {

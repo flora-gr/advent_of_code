@@ -6,7 +6,7 @@ Future<void> calculate() async {
   base.calculateFirst = _getSnafu1;
   base.calculateSecond = _second;
   base.exampleAnswerFirst = '2=-1=0';
-  base.exampleAnswerSecond = '';
+  base.exampleAnswerSecond = '-';
 
   await base.calculate(25);
 }
