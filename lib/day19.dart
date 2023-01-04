@@ -24,35 +24,14 @@ int _second(List<String> dataLines) {
   if (dataLines.length > 2) {
     numberOfBlueprints = 3;
   }
-  final List<Blueprint> bluePrints = _getBlueprints(
-    dataLines.sublist(0, numberOfBlueprints),
-  );
+  final List<Blueprint> bluePrints = _getBlueprints(dataLines);
 
   int multiply = 1;
-  for (Blueprint blueprint in bluePrints) {
+  for (Blueprint blueprint in bluePrints.sublist(0, numberOfBlueprints)) {
     multiply *= _getMaxGeodes(blueprint, minutes: 32, reduceCapping: 1);
   }
 
   return multiply;
-}
-
-int _getMaxOreCosts(Blueprint blueprint) {
-  int maxOre = blueprint.clayRobotCosts.ore;
-  if (blueprint.obsidianRobotCosts.ore > maxOre) {
-    maxOre = blueprint.obsidianRobotCosts.ore;
-  }
-  if (blueprint.geodeRobotCosts.ore > maxOre) {
-    maxOre = blueprint.geodeRobotCosts.ore;
-  }
-  return maxOre;
-}
-
-int _getMaxClayCosts(Blueprint blueprint) {
-  int maxClay = blueprint.obsidianRobotCosts.clay;
-  if (blueprint.geodeRobotCosts.clay > maxClay) {
-    maxClay = blueprint.geodeRobotCosts.clay;
-  }
-  return maxClay;
 }
 
 int _getMaxGeodes(
@@ -119,6 +98,25 @@ int _getMaxGeodes(
       .toList(growable: false)
     ..sort();
   return geodes.last;
+}
+
+int _getMaxOreCosts(Blueprint blueprint) {
+  int maxOre = blueprint.clayRobotCosts.ore;
+  if (blueprint.obsidianRobotCosts.ore > maxOre) {
+    maxOre = blueprint.obsidianRobotCosts.ore;
+  }
+  if (blueprint.geodeRobotCosts.ore > maxOre) {
+    maxOre = blueprint.geodeRobotCosts.ore;
+  }
+  return maxOre;
+}
+
+int _getMaxClayCosts(Blueprint blueprint) {
+  int maxClay = blueprint.obsidianRobotCosts.clay;
+  if (blueprint.geodeRobotCosts.clay > maxClay) {
+    maxClay = blueprint.geodeRobotCosts.clay;
+  }
+  return maxClay;
 }
 
 bool _shouldGetObsidianRobot(int obsidianRobots, int maxObsidian) {
