@@ -12,13 +12,13 @@ Future<void> calculate() async {
 }
 
 int _first(List<String> dataLines) {
-  var seeds = dataLines.first
+  final seeds = dataLines.first
       .split(' ')
       .sublist(1)
       .map((String seed) => int.parse(seed))
-      .toList();
+      .toList(growable: false);
 
-  var mappings = _getMappings(dataLines);
+  final mappings = _getMappings(dataLines);
 
   for (List<List<int>> mapping in mappings) {
     for (int i = 0; i < seeds.length; i++) {
@@ -37,26 +37,27 @@ int _first(List<String> dataLines) {
 }
 
 int _second(List<String> dataLines) {
-  var seedNumbers = dataLines.first
+  final seedNumbers = dataLines.first
       .split(' ')
       .sublist(1)
       .map((String seed) => int.parse(seed))
-      .toList();
+      .toList(growable: false);
+
   var seedRanges = <(int, int)>[];
   for (int i = 0; i < seedNumbers.length - 1; i = i + 2) {
     seedRanges.add((seedNumbers[i], seedNumbers[i] + seedNumbers[i + 1] - 1));
   }
 
-  var mappings = _getMappings(dataLines);
+  final mappings = _getMappings(dataLines);
 
   for (List<List<int>> mapping in mappings) {
-    var newSeedRanges = <(int, int)>[];
+    final newSeedRanges = <(int, int)>[];
     for ((int, int) range in seedRanges) {
-      var rangesWithinCalc = <(int, int)>[];
-      var leftOverRanges = <(int, int)>[range];
+      final rangesWithinCalc = <(int, int)>[];
+      final leftOverRanges = <(int, int)>[range];
       for (List<int> calc in mapping) {
-        var calcRange = (calc[1], calc[1] + calc[2] - 1);
-        var calcDiff = calc[0] - calc[1];
+        final calcRange = (calc[1], calc[1] + calc[2] - 1);
+        final calcDiff = calc[0] - calc[1];
         for ((int, int) leftOverRange in List.of(leftOverRanges)) {
           if (leftOverRange.$1 >= calcRange.$1 &&
               leftOverRange.$2 <= calcRange.$2) {
@@ -66,7 +67,7 @@ int _second(List<String> dataLines) {
                 (leftOverRange.$1 + calcDiff, leftOverRange.$2 + calcDiff));
           } else if (leftOverRange.$1 < calcRange.$1 &&
               leftOverRange.$2 > calcRange.$2) {
-            // seedRange end falls within calcRange
+            // calcRange falls within seedRange
             leftOverRanges.remove(leftOverRange);
             rangesWithinCalc
                 .add((calcRange.$1 + calcDiff, calcRange.$2 + calcDiff));
@@ -81,7 +82,7 @@ int _second(List<String> dataLines) {
             leftOverRanges.add((calcRange.$2 + 1, leftOverRange.$2));
           } else if (leftOverRange.$2 >= calcRange.$1 &&
               leftOverRange.$2 <= calcRange.$2) {
-            // calcRange fals within seedRange
+            // seedRange end falls within calcRange
             leftOverRanges.remove(leftOverRange);
             rangesWithinCalc
                 .add((calcRange.$1 + calcDiff, leftOverRange.$2 + calcDiff));
@@ -94,13 +95,12 @@ int _second(List<String> dataLines) {
     seedRanges = List.of(newSeedRanges);
   }
 
-  seedRanges.sort(((int, int) a, (int, int) b) => a.$1.compareTo(b.$1));
   return seedRanges.map(((int, int) range) => range.$1.toInt()).reduce(min);
 }
 
 Iterable<List<List<int>>> _getMappings(List<String> dataLines) {
   if (base.dataCache == null) {
-    var dataSeparations = <int>[];
+    final dataSeparations = <int>[];
     for (int i = 0; i < dataLines.length; i++) {
       if (dataLines[i].isEmpty) {
         dataSeparations.add(i);
@@ -109,15 +109,15 @@ Iterable<List<List<int>>> _getMappings(List<String> dataLines) {
 
     dataSeparations.add(dataLines.length);
 
-    var mappings = <List<List<int>>>[];
+    final mappings = <List<List<int>>>[];
     for (int i = 0; i < dataSeparations.length - 1; i++) {
       mappings.add(dataLines
           .sublist(dataSeparations[i] + 2, dataSeparations[i + 1])
           .map((String line) => line
               .split(' ')
               .map((String number) => int.parse(number))
-              .toList())
-          .toList());
+              .toList(growable: false))
+          .toList(growable: false));
     }
 
     base.dataCache = mappings;

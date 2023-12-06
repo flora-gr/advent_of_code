@@ -12,9 +12,9 @@ Future<void> calculate() async {
 }
 
 int _first(List<String> dataLines) {
-  final int redCubes = 12;
-  final int greenCubes = 13;
-  final int blueCubes = 14;
+  final redCubes = 12;
+  final greenCubes = 13;
+  final blueCubes = 14;
 
   final games = _parseGames(dataLines);
 
@@ -33,11 +33,11 @@ int _second(List<String> dataLines) {
 
   num sum = 0;
   for (Game game in games) {
-    var maxRed =
+    final maxRed =
         (game.draws.map((({int r, int g, int b}) draw) => draw.r)).reduce(max);
-    var maxGreen =
+    final maxGreen =
         (game.draws.map((({int r, int g, int b}) draw) => draw.g)).reduce(max);
-    var maxBlue =
+    final maxBlue =
         (game.draws.map((({int r, int g, int b}) draw) => draw.b)).reduce(max);
     sum += maxRed * maxGreen * maxBlue;
   }
@@ -49,7 +49,7 @@ List<Game> _parseGames(List<String> dataLines) {
   final games = <Game>[];
   for (String line in dataLines) {
     final gameParts = line.split(':');
-    var game = Game(int.parse(gameParts[0].split(' ').last), []);
+    final game = Game(int.parse(gameParts[0].split(' ').last), []);
     final draws = gameParts[1].split(';');
     for (String draw in draws) {
       var r = 0;
@@ -57,7 +57,7 @@ List<Game> _parseGames(List<String> dataLines) {
       var b = 0;
       final colors = draw.split(',');
       for (String color in colors) {
-        var colorData = color.trim().split(' ');
+        final colorData = color.trim().split(' ');
         switch (colorData) {
           case [var i, 'red']:
             r = int.parse(i);

@@ -13,9 +13,9 @@ Future<void> calculate() async {
 int _first(List<String> dataLines) {
   var total = 0;
   for (String line in dataLines) {
-    var data = line.split(':').last.split('|');
-    var winningNumbers = _getNumbers(data.first);
-    var scratchedNumbers = _getNumbers(data.last);
+    final data = line.split(':').last.split('|');
+    final winningNumbers = _getNumbers(data.first);
+    final scratchedNumbers = _getNumbers(data.last);
     var points = 0;
     for (String number in winningNumbers) {
       if (scratchedNumbers.contains(number)) {
@@ -32,12 +32,13 @@ int _first(List<String> dataLines) {
 }
 
 int _second(List<String> dataLines) {
-  var cardAmounts = List.generate(dataLines.length, (i) => 1, growable: false);
+  final cardAmounts =
+      List.generate(dataLines.length, (i) => 1, growable: false);
   for (int i = 0; i < dataLines.length; i++) {
-    var data = dataLines[i].split(':').last.split('|');
-    var winningNumbers = _getNumbers(data.first);
-    var scratchedNumbers = _getNumbers(data.last);
-    var numberOfMatches = scratchedNumbers
+    final data = dataLines[i].split(':').last.split('|');
+    final winningNumbers = _getNumbers(data.first);
+    final scratchedNumbers = _getNumbers(data.last);
+    final numberOfMatches = scratchedNumbers
         .where((String number) => winningNumbers.contains(number))
         .length;
     for (int j = 1; j <= numberOfMatches; j++) {

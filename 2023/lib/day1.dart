@@ -12,7 +12,7 @@ Future<void> calculate() async {
 
 int _first(List<String> dataLines) {
   if (dataLines.any((String line) => line.isEmpty)) {
-    final int dataSeparation =
+    final dataSeparation =
         dataLines.indexOf(dataLines.firstWhere((String line) => line.isEmpty));
     dataLines = dataLines.sublist(0, dataSeparation);
   }
@@ -29,7 +29,7 @@ int _first(List<String> dataLines) {
 
 int _second(List<String> dataLines) {
   if (dataLines.any((String line) => line.isEmpty)) {
-    final int dataSeparation =
+    final dataSeparation =
         dataLines.indexOf(dataLines.firstWhere((String line) => line.isEmpty));
     dataLines = dataLines.sublist(dataSeparation + 1);
   }
@@ -68,7 +68,7 @@ int _second(List<String> dataLines) {
   return sum;
 }
 
-var numbers = [...numberMap.values, ...numberMap.keys];
+final numbers = [...numberMap.values, ...numberMap.keys];
 
 const numberMap = {
   'one': '1',

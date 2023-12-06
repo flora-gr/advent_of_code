@@ -11,7 +11,7 @@ Future<void> calculate() async {
 }
 
 int _first(List<String> dataLines) {
-  var coordinates = _parseCoordinates(dataLines);
+  final coordinates = _parseCoordinates(dataLines);
 
   List<int> partNumbers = [];
   for (int y in coordinates.keys) {
@@ -38,13 +38,13 @@ int _first(List<String> dataLines) {
 }
 
 int _second(List<String> dataLines) {
-  var coordinates = _parseCoordinates(dataLines);
+  final coordinates = _parseCoordinates(dataLines);
 
   List<GearAdjacent> partNumbersWithGearSymbols = [];
   for (int y in coordinates.keys) {
     final row = coordinates[y]!;
     var currentNumber = '';
-    var gearSymbols = <(int, int)>{};
+    final gearSymbols = <(int, int)>{};
     for (int x in row.keys) {
       bool isInt = int.tryParse(row[x]!) != null;
       if (isInt) {
@@ -62,7 +62,7 @@ int _second(List<String> dataLines) {
     }
   }
 
-  var sharedGearNumbers = <(int, int), List<GearAdjacent>>{};
+  final sharedGearNumbers = <(int, int), List<GearAdjacent>>{};
   for (GearAdjacent number in partNumbersWithGearSymbols) {
     for ((int, int) gearSymbol in number.gearSymbols) {
       if (sharedGearNumbers.keys.contains(gearSymbol)) {
@@ -81,10 +81,10 @@ int _second(List<String> dataLines) {
 
 Map<int, Map<int, String>> _parseCoordinates(List<String> dataLines) {
   if (base.dataCache == null) {
-    var coordinates = <int, Map<int, String>>{};
+    final coordinates = <int, Map<int, String>>{};
     for (int i = 0; i < dataLines.length; i++) {
       coordinates[i] = <int, String>{};
-      var values = dataLines[i].split('');
+      final values = dataLines[i].split('');
       for (int j = 0; j < values.length; j++) {
         coordinates[i]![j] = values[j];
       }

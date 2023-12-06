@@ -3,7 +3,7 @@ description: Dart solutions to Advent of Code 2023
 version: 1.0.0
 
 environment:
-  sdk: '>=3.2.0 <4.0.0'
+  sdk: '>=3.1.0 <4.0.0'
 
 dev_dependencies:
   lints: ^2.0.0

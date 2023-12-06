@@ -14,7 +14,7 @@ int _first(List<String> dataLines) {
   final times = _getIntList(dataLines.first);
   final dists = _getIntList(dataLines.last);
 
-  var winningOptions = <int>[];
+  final winningOptions = <int>[];
   for (int i = 0; i < times.length; i++) {
     winningOptions.add(_getWinningOptionsLength(times[i], dists[i]));
   }
@@ -32,16 +32,16 @@ int _second(List<String> dataLines) {
 List<int> _getIntList(String dataLine) => dataLine
     .split(' ')
     .where((String s) => s.isNotEmpty)
-    .toList()
+    .toList(growable: false)
     .sublist(1)
     .map((String s) => int.parse(s))
-    .toList();
+    .toList(growable: false);
 
 int _getInt(String dataLine) =>
     int.parse(dataLine.replaceAll(' ', '').split(':').last);
 
 int _getWinningOptionsLength(int time, int dist) {
-  var distanceOptions = <int>[];
+  final distanceOptions = <int>[];
   for (int j = 0; j <= time; j++) {
     distanceOptions.add((time - j) * j);
   }
