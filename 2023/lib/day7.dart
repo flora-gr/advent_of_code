@@ -84,7 +84,7 @@ extension HandExtension on Hand {
   }
 
   bool fullHouse({required bool withJokers}) {
-    var grouped = groupBy(cards, (String card) => card);
+    final grouped = groupBy(cards, (String card) => card);
     return grouped.values.any((List<String> v) => v.length == 3) &&
             grouped.values.any((List<String> v) => v.length == 2) ||
         withJokers &&
@@ -103,12 +103,12 @@ extension HandExtension on Hand {
   }
 
   bool twoPair() {
-    var grouped = groupBy(cards, (String card) => card);
+    final grouped = groupBy(cards, (String card) => card);
     return grouped.values.where((List<String> v) => v.length == 2).length == 2;
   }
 
   bool onePair({required bool withJokers}) {
-    var grouped = groupBy(cards, (String card) => card);
+    final grouped = groupBy(cards, (String card) => card);
     return grouped.values.any((List<String> v) => v.length == 2) ||
         withJokers && cards.any((String card) => card == joker);
   }
