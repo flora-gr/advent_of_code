@@ -12,6 +12,14 @@ Future<void> calculate() async {
 }
 
 int _first(List<String> dataLines) {
+  return _getOptionsSum(dataLines);
+}
+
+int _second(List<String> dataLines) {
+  return _getOptionsSum(dataLines, unfold: true);
+}
+
+int _getOptionsSum(List<String> dataLines, {bool unfold = false}) {
   var sum = 0;
   for (String line in dataLines) {
     final split = line.split(' ');
@@ -19,55 +27,37 @@ int _first(List<String> dataLines) {
         split[1].split(',').map((String num) => int.parse(num)).toList();
     var row = split[0].split('').toList();
 
-    final replacable = <int>[];
-    for (int i = 0; i < row.length; i++) {
-      if (row[i] == '?') {
-        replacable.add(i);
-      }
+    if (unfold) {
+      pattern += pattern + pattern + pattern + pattern;
+      row += ['?'] + row + ['?'] + row + ['?'] + row + ['?'] + row;
     }
 
-    final newRows = <List<String>>{List.of(row)};
-    for (int index in replacable) {
-      for (List<String> current in Set.of(newRows)) {
-        if (current.where((String char) => char == '#').length <
-            pattern.reduce((a, b) => a + b)) {
-          newRows.remove(current);
-          final newRow1 = List.of(current)..[index] = '#';
-          if (_canMatch(newRow1, pattern)) {
-            if (_matches(newRow1, pattern)) {
-              sum++;
-            } else {
-              newRows.add(newRow1);
-            }
-          }
-          final newRow2 = List.of(current)..[index] = '.';
-          if (_canMatch(newRow2, pattern)) {
-            newRows.add(newRow2);
-          }
-        }
-      }
-    }
-    for (List<String> newRow in newRows) {
-      if (_matches(newRow, pattern)) {
-        sum++;
-      }
-    }
+    sum += _getOptions(row, pattern);
   }
 
   return sum;
 }
 
-int _second(List<String> dataLines) {
+int _getOptions(List<String> row, List<int> pattern) {
+  if (_matches(row, pattern)) {
+    return 1;
+  } else if (_canMatch(row, pattern) && row.contains('?')) {
+    var i = row.indexOf('?');
+    final newRow1 = List.of(row)..[i] = '#';
+    final newRow2 = List.of(row)..[i] = '.';
+    return _getOptions(newRow1, pattern) + _getOptions(newRow2, pattern);
+  }
+
   return 0;
 }
 
-bool _canMatch(List<String> row, List<int> compare) {
+bool _canMatch(List<String> row, List<int> pattern) {
   return row.where((String char) => char != '.').length >=
-          compare.reduce((a, b) => a + b) &&
-      _startMatches(row, compare);
+          pattern.reduce((a, b) => a + b) &&
+      _startMatches(row, pattern);
 }
 
-bool _startMatches(List<String> row, List<int> compare) {
+bool _startMatches(List<String> row, List<int> pattern) {
   final startRow = <String>[];
   for (String char in row) {
     if (char == '?') {
@@ -75,28 +65,27 @@ bool _startMatches(List<String> row, List<int> compare) {
     }
     startRow.add(char);
   }
+
   final stretches = startRow
       .join()
       .split('.')
-      .where(((String stretch) =>
-          stretch.split('').every((String char) => char == '#')))
       .map((String stretch) => stretch.length)
       .where((int length) => length != 0)
       .toList();
 
-  if (stretches.length > compare.length) {
+  if (stretches.length > pattern.length) {
     return false;
   }
   for (int i = 0; i < stretches.length - 1; i++) {
-    if (stretches[i] != compare[i]) {
+    if (stretches[i] != pattern[i]) {
       return false;
     }
   }
   return true;
 }
 
-bool _matches(List<String> row, List<int> compare) {
-  final pattern = <int>[];
+bool _matches(List<String> row, List<int> pattern) {
+  final current = <int>[];
   var inStretch = false;
   var length = 0;
   for (int i = 0; i < row.length; i++) {
@@ -104,13 +93,13 @@ bool _matches(List<String> row, List<int> compare) {
       length++;
       inStretch = true;
       if (i == row.length - 1) {
-        pattern.add(length);
+        current.add(length);
       }
     } else {
       if (inStretch) {
-        pattern.add(length);
-        if (pattern.length > compare.length ||
-            pattern.last != compare[pattern.length - 1]) {
+        current.add(length);
+        if (current.length > pattern.length ||
+            current.last != pattern[current.length - 1]) {
           return false;
         }
         length = 0;
@@ -118,5 +107,5 @@ bool _matches(List<String> row, List<int> compare) {
       }
     }
   }
-  return pattern.equals(compare);
+  return current.equals(pattern);
 }
