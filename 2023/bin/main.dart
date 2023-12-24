@@ -42,4 +42,5 @@ void main() async {
   await day20.calculate();
   await day21.calculate();
   await day24.calculate();
+  await day23.calculate();
 }
