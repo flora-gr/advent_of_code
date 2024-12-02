@@ -54,5 +54,5 @@ int _second(List<String> dataLines) {
     }
     base.dataCache = (list1, list2);
   }
-  return base.dataCache as (List<int> a, List<int> b);
+  return base.dataCache as (List<int>, List<int>);
 }
